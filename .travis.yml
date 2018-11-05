@@ -1,0 +1,21 @@
+---
+dist: trusty
+language: node_js
+sudo: false
+git:
+  depth: 5
+
+node_js: stable
+
+jobs:
+  include:
+
+  - stage: push
+    if: type = push AND branch = master
+    services:
+      - docker
+    env:
+      - DOCKER_TAG=latest
+      - DOCKER_IMAGE=frontend
+    script:
+      - echo $DOCKER_IMAGE
