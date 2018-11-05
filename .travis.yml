@@ -21,16 +21,11 @@ jobs:
       - docker tag $REPO_SLUG:$TRAVIS_BRANCH $DOCKER_IMAGE
       - docker push $DOCKER_IMAGE
   - stage: test
-    env: DOCKER_IMAGE=frontend
-    script:
-    - cd @foo/$DOCKER_IMAGE
-    - yarn lint
-    - yarn test
-  - env: DOCKER_IMAGE=api
-    script:
-    - cd @foo/$DOCKER_IMAGE
-    - yarn lint
-    - yarn test
+    env: DOCKER_IMAGE="$TRAVIS_REPO_SLUG:$TRAVIS_BRANCH"
+    script: docker run --rm $DOCKER_IMAGE yarn workspace frontend test
+  - #
+    env: DOCKER_IMAGE="$TRAVIS_REPO_SLUG:$TRAVIS_BRANCH"
+    script: docker run --rm $DOCKER_IMAGE yarn workspace api test
   - stage: build
     env: DOCKER_IMAGE=api
     services:
