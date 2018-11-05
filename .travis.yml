@@ -26,9 +26,15 @@ jobs:
       - yarn test
 
   - stage: build
-    env:
-      - DOCKER_IMAGE=api
-      - DOCKER_IMAGE=frontend
+    env: DOCKER_IMAGE=api
+    services:
+      - docker
+    script:
+      - echo $DOCKER_IMAGE
+      - docker -v
+
+  - #
+    env: DOCKER_IMAGE=frontend
     services:
       - docker
     script:
