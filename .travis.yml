@@ -14,16 +14,24 @@ env:
 jobs:
   include:
 
-  - stage: push
-    if: type = push AND branch = master
+  - stage: test
+    script:
+      - echo $DOCKER_IMAGE
+  - services:
+      - docker
+    script:
+      - echo $DOCKER_IMAGE
+
+  - stage: build
     services:
       - docker
-    env:
-      - DOCKER_TAG=latest
     script:
       - echo $DOCKER_IMAGE
 
 jobs:
   include:
     - stage: deploy
+      if: type = push AND branch = master
+      env:
+        - DOCKER_TAG=latest
       script: echo $DOCKER_IMAGE
