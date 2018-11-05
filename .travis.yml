@@ -15,23 +15,25 @@ jobs:
   include:
 
   - stage: test
+    env: PACKAGE=frontend
     script:
-      - echo $DOCKER_IMAGE
-  - services:
-      - docker
+      - cd @foo/$DOCKER_IMAGE
+      - yarn test
+  - #
+    env: PACKAGE=api
     script:
-      - echo $DOCKER_IMAGE
+      - cd @foo/$DOCKER_IMAGE
+      - yarn test
 
   - stage: build
     services:
       - docker
     script:
       - echo $DOCKER_IMAGE
+      - docker -v
 
-jobs:
-  include:
-    - stage: deploy
-      if: type = push AND branch = master
-      env:
-        - DOCKER_TAG=latest
-      script: echo $DOCKER_IMAGE
+  - stage: deploy
+    if: type = push AND branch = master
+    env:
+      - DOCKER_TAG=latest
+    script: echo $DOCKER_IMAGE
