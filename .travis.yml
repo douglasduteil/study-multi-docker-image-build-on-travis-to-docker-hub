@@ -1,22 +1,34 @@
 dist: trusty
-language: node_js
 sudo: false
 git:
   depth: 5
-node_js: stable
-before_install:
-- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.12.1
-- export PATH="$HOME/.yarn/bin:$PATH"
+
+env:
+  - REPO_SLUG=$(dirname $TRAVIS_REPO_SLUG)
+  - DOCKER_IMAGE="$TRAVIS_REPO_SLUG:$TRAVIS_BRANCH"
+
 jobs:
   include:
+  - stage: build docker image
+    services:
+    - docker
+    script:
+      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - docker pull $DOCKER_IMAGE
+      - docker build -t $REPO_SLUG:$TRAVIS_BRANCH .
+      - docker images
+      - docker tag $REPO_SLUG:$TRAVIS_BRANCH $DOCKER_IMAGE
+      - docker push $DOCKER_IMAGE
   - stage: test
     env: DOCKER_IMAGE=frontend
     script:
     - cd @foo/$DOCKER_IMAGE
+    - yarn lint
     - yarn test
   - env: DOCKER_IMAGE=api
     script:
     - cd @foo/$DOCKER_IMAGE
+    - yarn lint
     - yarn test
   - stage: build
     env: DOCKER_IMAGE=api

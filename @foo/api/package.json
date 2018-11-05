@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "build": "echo \"No build expected\" && exit 0",
+    "lint": "echo \"No lint expected\" && exit 0",
     "test": "echo \"No tests expected\" && exit 0"
   }
 }

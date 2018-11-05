@@ -1,0 +1,4 @@
+version: '3'
+services:
+  frontend:
+    image: douglasduteil/study-multi-docker-image-build-on-travis-to-docker-hub__foo_api

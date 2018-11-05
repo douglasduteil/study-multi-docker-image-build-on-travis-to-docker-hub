@@ -5,6 +5,7 @@
   "description": ":microscope: Studying multiple docker image publication from a monorepo through Travis to Docker Hub",
   "main": "index.js",
   "scripts": {
+    "build": "echo \"No build expected for now...\" && exit 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
