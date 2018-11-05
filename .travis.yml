@@ -12,7 +12,7 @@ jobs:
   - stage: build docker image
     env:
     - REPO_SLUG=$(dirname $TRAVIS_REPO_SLUG)
-    - DOCKER_USERNAME="$(basename $TRAVIS_REPO_SLUG)"
+    - DOCKER_USERNAME=$(basename $TRAVIS_REPO_SLUG)
     - DOCKER_IMAGE="$TRAVIS_REPO_SLUG:$TRAVIS_BRANCH"
     - secure: UtDOX64rLuhL842ThmJId2JFbRA/q4kzqWivWVPInQtV0Lnef6sb868SD9M+x2BikSa4lB6uPohL3sKu2+iryxZ7XQ+xv691cam54kjGi8kC6EmouwSKblz/CNps/dIOb3nK7yMzq7FhcSI1WGBJUFrUrerNE908llIQkgl8nTCldd8bBCWman0vUfEq1TgTXEdke5tYMm2oB7/B4938R6hnSU/0odeLgreQ2cQAqCGUGXmQf0o9HkI+8S1cnmrcCusg3hJcXJ2UeRdmUMk6Qv6EESAL00yu3ovRlwNFxpSwRFwz/r2QqNkGBFTkfL5u7owyCP9Sf4FpBdmjtCg0LA+GZcINdD0g1PMrFdlL+fYIAUzmwqubpREcOcDxmm2mPgl13M+gv5W0mwFhU2sy2kqBOLvDJqEJJ3ytzw7oe8lfdoqnjYEWKCr4AGKufi4cf7sN9JIoPIrAbWWa8HU+IoWbyxBUjCE5A5g74vpUdUiKwTDJtKcOmIkX2VPTIHrvFZlokiWMnrrE9lq6jL1UKwE9ld8wQj8BaLM2eHXBlazy/KXj8xw+QMEmwFibaptEo1yad1FwiPmdoOBLDjIaAFO6pFAvqw6lqh1MMR9qlAd9UYDa7cSezevb0PDHemaSRNlDLOFn/sLZkvmxBwb3AZiVgaYbNhqMP/ae7Kc7gWU=
     script:
