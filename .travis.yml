@@ -23,10 +23,10 @@ jobs:
       - docker push $DOCKER_IMAGE
   - stage: test
     env: DOCKER_IMAGE="$TRAVIS_REPO_SLUG:${TRAVIS_COMMIT:0:7}"
-    script: docker run --rm $DOCKER_IMAGE yarn workspace frontend test
+    script: docker run --rm $DOCKER_IMAGE yarn workspace @foo/frontend test
   - #
     env: DOCKER_IMAGE="$TRAVIS_REPO_SLUG:${TRAVIS_COMMIT:0:7}"
-    script: docker run --rm $DOCKER_IMAGE yarn workspace api test
+    script: docker run --rm $DOCKER_IMAGE yarn workspace @foo/api test
   - stage: build
     env: DOCKER_IMAGE=api
     services:
