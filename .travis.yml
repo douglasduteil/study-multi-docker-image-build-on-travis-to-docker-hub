@@ -15,12 +15,12 @@ jobs:
   include:
 
   - stage: test
-    env: PACKAGE=frontend
+    env: DOCKER_IMAGE=frontend
     script:
       - cd @foo/$DOCKER_IMAGE
       - yarn test
   - #
-    env: PACKAGE=api
+    env: DOCKER_IMAGE=api
     script:
       - cd @foo/$DOCKER_IMAGE
       - yarn test
