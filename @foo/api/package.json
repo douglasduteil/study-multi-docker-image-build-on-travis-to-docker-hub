@@ -1,0 +1,10 @@
+{
+  "name": "@foo/api",
+  "version": "0.0.0",
+  "private": true,
+  "description": ":microscope: Studying multiple docker image publication from a monorepo through Travis to Docker Hub",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

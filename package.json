@@ -1,0 +1,24 @@
+{
+  "name": "study-multi-docker-image-build-on-travis-to-docker-hub",
+  "version": "0.0.0",
+  "private": true,
+  "description": ":microscope: Studying multiple docker image publication from a monorepo through Travis to Docker Hub",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/douglasduteil/study-multi-docker-image-build-on-travis-to-docker-hub.git"
+  },
+  "keywords": [],
+  "author": "Douglas Duteil <douglasduteil@gmail.com> (https://douglasduteil.github.io)",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/douglasduteil/study-multi-docker-image-build-on-travis-to-docker-hub/issues"
+  },
+  "homepage": "https://github.com/douglasduteil/study-multi-docker-image-build-on-travis-to-docker-hub#readme",
+  "workspaces": [
+    "@foo/*"
+  ]
+}
