@@ -7,6 +7,10 @@ git:
 
 node_js: stable
 
+env:
+  - DOCKER_IMAGE=api
+  - DOCKER_IMAGE=frontend
+
 jobs:
   include:
 
@@ -16,6 +20,10 @@ jobs:
       - docker
     env:
       - DOCKER_TAG=latest
-      - DOCKER_IMAGE=frontend
     script:
       - echo $DOCKER_IMAGE
+
+jobs:
+  include:
+    - stage: deploy
+      script: echo $DOCKER_IMAGE
