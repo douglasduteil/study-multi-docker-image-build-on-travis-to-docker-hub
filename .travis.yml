@@ -18,36 +18,32 @@ jobs:
   include:
   - stage: build docker image
     env: [*docker_image, *docker-keys]
-    script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -t $DOCKER_IMAGE .
-      - docker images
-      - docker push $DOCKER_IMAGE
+    script: |
+      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      docker build -t $DOCKER_IMAGE .
+      docker images
+      docker push $DOCKER_IMAGE
   - stage: test
     env: [*docker_image]
     script: docker run --rm $DOCKER_IMAGE yarn workspace @foo/frontend test
   - #
     env: [*docker_image]
     script: docker run --rm $DOCKER_IMAGE yarn workspace @foo/api test
-  - stage: build
-    env: [*docker_image]
-    services:
-    - docker
-    script:
-    - echo $DOCKER_IMAGE
-    - docker -v
-  - #
-    env: [*docker_image]
-    services:
-    - docker
-    script:
-    - echo $DOCKER_IMAGE
-    - docker -v
-  - stage: deploy
+
+  - stage: deploy images
     if: type = push AND branch = master
     env: [REPO_SLUG=$(dirname $TRAVIS_REPO_SLUG), *docker_image, *docker-keys]
-    script:
-    - docker pull $DOCKER_IMAGE
-    - docker tag $DOCKER_IMAGE $TRAVIS_REPO_SLUG:$TRAVIS_BRANCH
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker push $TRAVIS_REPO_SLUG:$TRAVIS_BRANCH
+    script: |
+      docker pull $DOCKER_IMAGE
+      docker tag $DOCKER_IMAGE $TRAVIS_REPO_SLUG:$TRAVIS_BRANCH
+      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      docker push $TRAVIS_REPO_SLUG:$TRAVIS_BRANCH
+      #
+      MODULE_IMAGE="${TRAVIS_REPO_SLUG}__foo_api"
+      docker build \
+        -f ./@foo/api/Dockerfile \
+        -t $MODULE_IMAGE \
+        --build-arg BASE_IMAGE=$DOCKER_IMAGE
+        .
+      docker push $MODULE_IMAGE
+
