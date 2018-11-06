@@ -86,7 +86,12 @@ $ docker run --rm -p 8080:80 smdibottdh yarn workspace @foo/api start
 ## Run
 
 Each packages have them own docker-compose for the "production".  
-Note that they are using published images !
+Note that they are using [published images](https://hub.docker.com/r/douglasduteil/study-multi-docker-image-build-on-travis-to-docker-hub/tags/) !  
+I'm using 
+- `*:master` tag for the current builder we have on the master branch
+- `*:latest-api` tag for the latest @foo/api package image
+- `*:latest-frontend` tag for the latest @foo/frontend package image
+- `*:build.XX.master.YYYYYYY` tags are temporary images used by the CI (Travis) to build, test and create the above images
 
 You can test the api with :
 
