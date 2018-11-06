@@ -9,4 +9,6 @@ FROM node:11
 COPY --from=master /app/@foo/api/package.json /app/package.json
 COPY --from=master /app/@foo/api/index.js /app/index.js
 
+WORKDIR /app
+
 ENTRYPOINT ["yarn", "start"]
