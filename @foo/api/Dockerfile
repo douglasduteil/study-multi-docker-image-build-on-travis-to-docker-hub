@@ -6,7 +6,7 @@ WORKDIR /app
 
 FROM node:11
 
-COPY --from=master ./@foo/api/package.json /app/package.json
-COPY --from=master ./@foo/api/index.js /app/index.js
+COPY --from=master /app/@foo/api/package.json /app/package.json
+COPY --from=master /app/@foo/api/index.js /app/index.js
 
 ENTRYPOINT ["yarn", "start"]
