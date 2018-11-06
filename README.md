@@ -105,6 +105,32 @@ You can test the frontend with :
 $ docker-compose -f @foo/frontend/docker-compose.yml up
 ```
 
+### Local production like build
+
+You can locally create a production build by using the separate Dockerfiles in each packages.  
+By default, they are using the latest published `master` branch image but you can change it by using the `BASE_IMAGE` arguments.
+
+For example:
+
+```sh
+# I'm building the api to an image named "smdibottdh:api" using the previous built "smdibottdh" master image.
+$ docker build -f ./@foo/api/Dockerfile -t smdibottdh:api --build-arg BASE_IMAGE=smdibottdh .
+# Same for the frontend
+$ docker build -f ./@foo/frontend/Dockerfile -t smdibottdh:frontend --build-arg BASE_IMAGE=smdibottdh .
+```
+
+If you want to use the existing docker-compose config, you might want to name or tag your image accordingly.
+
+```sh
+# For the propose of the study...
+$ docker tag smdibottdh:frontend douglasduteil/study-multi-docker-image-build-on-travis-to-docker-hub:latest-frontend
+# or
+$ docker build -f ./@foo/frontend/Dockerfile -t douglasduteil/study-multi-docker-image-build-on-travis-to-docker-hub:latest-frontend --build-arg BASE_IMAGE=smdibottdh .
+
+# Now docker will use your local image
+$ docker-compose -f @foo/frontend/docker-compose.yml up
+```
+
 <br>
 <br>
 <br>
