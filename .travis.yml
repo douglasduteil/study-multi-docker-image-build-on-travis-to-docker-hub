@@ -42,12 +42,10 @@ jobs:
     - MODULE_IMAGE="${TRAVIS_REPO_SLUG}:latest-api"
     - DOCKERFILE=./@foo/api/Dockerfile
     - docker build -f $DOCKERFILE -t $MODULE_IMAGE --build-arg BASE_IMAGE=$DOCKER_IMAGE .
-    - docker tag $MODULE_IMAGE $MODULE_IMAGE
     - docker push $MODULE_IMAGE
     #
     - MODULE_IMAGE="${TRAVIS_REPO_SLUG}:latest-frontend"
     - DOCKERFILE=./@foo/frontend/Dockerfile
     - docker build -f $DOCKERFILE -t $MODULE_IMAGE --build-arg BASE_IMAGE=$DOCKER_IMAGE .
-    - docker tag $MODULE_IMAGE $MODULE_IMAGE
     - docker push $MODULE_IMAGE
 
