@@ -19,8 +19,7 @@ jobs:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build -t $REPO_SLUG:${TRAVIS_COMMIT:0:7} .
       - docker images
-      - docker tag $REPO_SLUG:${TRAVIS_COMMIT:0:7} $DOCKER_IMAGE
-      - docker push $DOCKER_IMAGE
+      - docker push $REPO_SLUG:${TRAVIS_COMMIT:0:7}
   - stage: test
     env: DOCKER_IMAGE="$TRAVIS_REPO_SLUG:${TRAVIS_COMMIT:0:7}"
     script: docker run --rm $DOCKER_IMAGE yarn workspace @foo/frontend test
