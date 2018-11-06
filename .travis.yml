@@ -40,10 +40,6 @@ jobs:
       docker push $TRAVIS_REPO_SLUG:$TRAVIS_BRANCH
       #
       MODULE_IMAGE="${TRAVIS_REPO_SLUG}__foo_api"
-      docker build \
-        -f ./@foo/api/Dockerfile \
-        -t $MODULE_IMAGE \
-        --build-arg BASE_IMAGE=$DOCKER_IMAGE
-        .
+      docker build -f ./@foo/api/Dockerfile -t $MODULE_IMAGE --build-arg BASE_IMAGE=$DOCKER_IMAGE .
       docker push $MODULE_IMAGE
 
