@@ -41,5 +41,9 @@ jobs:
   - stage: deploy
     if: type = push AND branch = master
     env:
-    - DOCKER_TAG=latest
-    script: echo $DOCKER_IMAGE
+    - REPO_SLUG=$(dirname $TRAVIS_REPO_SLUG)
+    - DOCKER_IMAGE="$TRAVIS_REPO_SLUG:travis.$TRAVIS_BRANCH.${TRAVIS_COMMIT:0:7}"
+    script:
+    - docker pull $DOCKER_IMAGE
+    - docker tag $DOCKER_IMAGE $TRAVIS_REPO_SLUG:$REPO_SLUG
+    - docker push $TRAVIS_REPO_SLUG:$REPO_SLUG
