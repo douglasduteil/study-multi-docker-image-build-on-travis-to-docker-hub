@@ -18,11 +18,11 @@ jobs:
   include:
   - stage: build docker image
     env: [*docker_image, *docker-keys]
-    script: |
-      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      docker build -t $DOCKER_IMAGE .
-      docker images
-      docker push $DOCKER_IMAGE
+    script:
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker build -t $DOCKER_IMAGE .
+    - docker images
+    - docker push $DOCKER_IMAGE
   - stage: test
     env: [*docker_image]
     script: docker run --rm $DOCKER_IMAGE yarn workspace @foo/frontend test
@@ -34,20 +34,20 @@ jobs:
     if: type = push AND branch = master
     env: [REPO_SLUG=$(dirname $TRAVIS_REPO_SLUG), *docker_image, *docker-keys]
     script: |
-      docker pull $DOCKER_IMAGE
-      docker tag $DOCKER_IMAGE $TRAVIS_REPO_SLUG:$TRAVIS_BRANCH
-      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      docker push $TRAVIS_REPO_SLUG:$TRAVIS_BRANCH
-      #
-      MODULE_IMAGE="${TRAVIS_REPO_SLUG}:latest-api"
-      DOCKERFILE=./@foo/api/Dockerfile
-      docker build -f $DOCKERFILE -t $MODULE_IMAGE --build-arg BASE_IMAGE=$DOCKER_IMAGE .
-      docker tag $MODULE_IMAGE $MODULE_IMAGE
-      docker push $MODULE_IMAGE
-      #
-      MODULE_IMAGE="${TRAVIS_REPO_SLUG}:latest-frontend"
-      DOCKERFILE=./@foo/frontend/Dockerfile
-      docker build -f $DOCKERFILE -t $MODULE_IMAGE --build-arg BASE_IMAGE=$DOCKER_IMAGE .
-      docker tag $MODULE_IMAGE $MODULE_IMAGE
-      docker push $MODULE_IMAGE
+    - docker pull $DOCKER_IMAGE
+    - docker tag $DOCKER_IMAGE $TRAVIS_REPO_SLUG:$TRAVIS_BRANCH
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker push $TRAVIS_REPO_SLUG:$TRAVIS_BRANCH
+    #
+    - MODULE_IMAGE="${TRAVIS_REPO_SLUG}:latest-api"
+    - DOCKERFILE=./@foo/api/Dockerfile
+    - docker build -f $DOCKERFILE -t $MODULE_IMAGE --build-arg BASE_IMAGE=$DOCKER_IMAGE .
+    - docker tag $MODULE_IMAGE $MODULE_IMAGE
+    - docker push $MODULE_IMAGE
+    #
+    - MODULE_IMAGE="${TRAVIS_REPO_SLUG}:latest-frontend"
+    - DOCKERFILE=./@foo/frontend/Dockerfile
+    - docker build -f $DOCKERFILE -t $MODULE_IMAGE --build-arg BASE_IMAGE=$DOCKER_IMAGE .
+    - docker tag $MODULE_IMAGE $MODULE_IMAGE
+    - docker push $MODULE_IMAGE
 
