@@ -4,9 +4,19 @@
 
 > :microscope: Studying multiple docker image publication from a monorepo through Travis to Docker Hub
 
+<br>
+<br>
+<br>
+<br>
+
 ## The problem
 
 Yarn Workspace allow us to share installed dependencies, making monorepo faster, smaller to install and packages linking easier. However in a Docker context that can be counter intuitive as now any packages in the monorepo requires every monorepo dependencies to be installed to build. Yet I would argue that it is the monorepo goal to sync all builds in one context so that some packages can be used as transitive resources.  
+
+<br>
+<br>
+<br>
+<br>
 
 ## This study
 
@@ -18,7 +28,15 @@ I'm exploring how we can share an *master* docker image to :
 
 The process is sync with Travis and deployed on Docker Hub.
 
+<br>
+<br>
+
 <h3 align=center>Most of the evil magic here is in the `.travis.yml` file !</h3>
+
+<br>
+<br>
+<br>
+<br>
 
 ## Installation
 
@@ -34,6 +52,11 @@ You can use the root [Dockerfile](./Dockerfile) to have ready to use environment
 # "smdibottdh" is short for "study-multi-docker-image-build-on-travis-to-docker-hub"
 $ docker build -t smdibottdh .
 ```
+
+<br>
+<br>
+<br>
+<br>
 
 ## Usage
 
@@ -55,6 +78,11 @@ You can print a `hello world`
 $ docker run --rm -p 8080:80 smdibottdh yarn workspace @foo/api start 
 ```
 
+<br>
+<br>
+<br>
+<br>
+
 ## Run
 
 Each packages have them own docker-compose for the "production".  
@@ -71,6 +99,11 @@ You can test the frontend with :
 ```sh
 $ docker-compose -f @foo/frontend/docker-compose.yml up
 ```
+
+<br>
+<br>
+<br>
+<br>
 
 ## Clean up
 
