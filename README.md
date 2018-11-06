@@ -18,6 +18,8 @@ I'm exploring how we can share an *master* docker image to :
 
 The process is sync with Travis and deployed on Docker Hub.
 
+<h3 align=center>Most of the evil magic here is in the `.travis.yml` file !</h3>
+
 ## Installation
 
 ### System driven
