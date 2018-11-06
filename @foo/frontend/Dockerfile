@@ -6,4 +6,4 @@ WORKDIR /app
 
 FROM nginx:alpine
 
-COPY --from=master /app/@foo/fon/index.html /usr/share/nginx/html/index.html
+COPY --from=master /app/@foo/frontend/index.html /usr/share/nginx/html/index.html
