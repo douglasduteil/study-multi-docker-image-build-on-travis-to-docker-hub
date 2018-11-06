@@ -33,7 +33,7 @@ jobs:
   - stage: deploy images
     if: type = push AND branch = master
     env: [REPO_SLUG=$(dirname $TRAVIS_REPO_SLUG), *docker_image, *docker-keys]
-    script: |
+    script:
     - docker pull $DOCKER_IMAGE
     - docker tag $DOCKER_IMAGE $TRAVIS_REPO_SLUG:$TRAVIS_BRANCH
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
