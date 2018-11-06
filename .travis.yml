@@ -16,6 +16,10 @@ _environments:
 
 jobs:
   include:
+
+  #
+  # First we build and push the current "master" docker image
+  #
   - stage: build docker image
     env: [*docker_image, *docker-keys]
     script:
@@ -23,6 +27,10 @@ jobs:
     - docker build -t $DOCKER_IMAGE .
     - docker images
     - docker push $DOCKER_IMAGE
+
+  #
+  # We use this "master" image to run our tests
+  #
   - stage: test
     env: [*docker_image]
     script: docker run --rm $DOCKER_IMAGE yarn workspace @foo/frontend test
@@ -30,6 +38,9 @@ jobs:
     env: [*docker_image]
     script: docker run --rm $DOCKER_IMAGE yarn workspace @foo/api test
 
+  #
+  # We use this "master" image to create two other images : api and frontend
+  #
   - stage: deploy images
     if: type = push AND branch = master
     env: [REPO_SLUG=$(dirname $TRAVIS_REPO_SLUG), *docker_image, *docker-keys]
